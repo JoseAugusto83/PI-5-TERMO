@@ -9,7 +9,7 @@ export const request = async (type, body, page) =>{
 				category: body[1],
 				price: body[2].replace(",","."),
 				qtt: body[3],
-				user_id: "9"
+				user_id: "1"
 			}),
 			headers: {
 				"Content-Type": "application/json"
