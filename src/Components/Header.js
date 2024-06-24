@@ -10,11 +10,11 @@ const Header = () => {
 			<nav className={`${style.nav} container`}>
 				<div>
 					<Link to="/">Inventário</Link>
-					<Link to="vendidos" >Vendas</Link>
+					<Link to="/vendidos" >Vendas</Link>
 				</div>
 				<img className={style.logo} src={logo}/>
 				<div>
-					<Link to={"login"}><Sair className={style.sair}/></Link>
+					<Link to={"/login"}><Sair className={style.sair}/></Link>
 				</div>
 			</nav>
 		</header>

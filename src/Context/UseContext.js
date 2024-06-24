@@ -7,8 +7,10 @@ export const GlobalStorage = ({ children }) =>{
 
 	const [requestType, setRequestType] = React.useState("");
 
+	const [updateItem, setUpdateItem] = React.useState(null);
+
 	return (
-		<UseContext.Provider value={{requestType, setRequestType}}>
+		<UseContext.Provider value={{requestType, setRequestType, updateItem, setUpdateItem}}>
 			{children}
 		</UseContext.Provider>
 	);

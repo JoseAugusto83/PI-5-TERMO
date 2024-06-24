@@ -16,10 +16,22 @@ const ModalSetProduto = ({setModalIsOpen}) => {
 	const contexto = React.useContext(UseContext);
 	const [error, setError] = React.useState(false);
 
-	const [name, setName] = React.useState([]);
-	const [price, setPrice] = React.useState([]);
-	const [quantidade, setQuantidade] = React.useState([]);
-	const [categoria, setCategoria] = React.useState([]);
+
+	const [name, setName] = React.useState(null);
+	const [price, setPrice] = React.useState(null);
+	const [quantidade, setQuantidade] = React.useState(null);
+	const [categoria, setCategoria] = React.useState(null);
+
+	React.useEffect(() => {
+		if(contexto.updateItem !== null){
+			let update = contexto.updateItem.map((x) => x);
+			setName(update[0]);
+			setPrice(update[1]);
+			setQuantidade(update[2]);
+			setCategoria(update[3]);
+		}
+
+	}, []);
 
 
 
@@ -36,10 +48,24 @@ const ModalSetProduto = ({setModalIsOpen}) => {
 					contador += 1;
 				}
 			});
-		if(contador == 0){
+		if(contador == 0 && contexto.updateItem !== null){
 			try{
+				const insert = await request(contexto.requestType, [name, categoria, price, quantidade, contexto.updateItem[4]], "produtos");
+				contexto.setRequestType("");
+				contexto.setUpdateItem(null);
+				location.reload();
+				console.log(insert);
 			
-				const insert = await request(contexto.requestType, [name, categoria, price, quantidade]);
+			}catch(error){
+				console.log(error);
+			}
+		}
+
+		else if(contador == 0 && contexto.updateItem == null){
+			try{
+				const insert = await request(contexto.requestType, [name, categoria, price, quantidade], "produtos");
+				contexto.setRequestType("");
+				contexto.setUpdateItem(null);
 				location.reload();
 				console.log(insert);
 			
@@ -51,6 +77,7 @@ const ModalSetProduto = ({setModalIsOpen}) => {
 		
 
 	}
+
 	return (
 		<>
 			<div className={styles.title_container}>
@@ -73,8 +100,7 @@ const ModalSetProduto = ({setModalIsOpen}) => {
 					<ButtonIncluir />
 				</div>
 			</form>
-		</>
-	);
+		</>);
 };
 
 export default ModalSetProduto;

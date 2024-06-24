@@ -6,8 +6,10 @@ import { getProducts } from "../utils/produto";
 import ButtonCadastrar from "./ButtonCadastrar";
 import ModalProduto from "./ModalProduto";
 import Header from "./Header";
+import {propTypes} from "prop-types";
 
-const Inventario = () => {
+const Inventario = ({requisicao}) => {
+	
 
 	const [products, setProducts] = React.useState(null);
 	const [modalIsOpen, setModalIsOpen] = React.useState(false);
@@ -15,16 +17,15 @@ const Inventario = () => {
 	React.useEffect(() => {
 		async function get(){
 			try{
-				const produtos = await getProducts();
-				setProducts(produtos.users);
+				const produtos = await getProducts(requisicao);
+				setProducts(produtos);
 			} catch(error){
 				console.log(error);
 			}
 		}
 		get();
-	}, []);
+	}, [requisicao]);
 
-	console.log(products);
 
 	return (
 		<>
@@ -35,11 +36,15 @@ const Inventario = () => {
 					<SearchBar/>
 					<ButtonCadastrar setModalIsOpen={setModalIsOpen}>Adicionar Produto</ButtonCadastrar>
 				</div>
-				<Table produtos={products}/>
-				{!products && <h2 className={style.not_products}>Nenhum produto cadastrado</h2>}
+				{products && <Table produtos={products} setModal={setModalIsOpen}/>}
+				{!products && <h2 className={style.not_products}>Nenhum produto cadastrado</h2> || products.length == 0 && <h2 className={style.not_products}>Nenhum produto cadastrado</h2>}
 			</div>
 		</>
 	);
 };
 
 export default Inventario;
+
+Inventario.propTypes = {
+	fetch: propTypes
+}.isRequired;

@@ -7,7 +7,7 @@ const InputText = ({state, placeholder, setState, label, idInput, error, typeInp
 	return (
 		<>
 			{label && <label htmlFor={idInput}>{label}</label>}
-			<input type="text" onChange={({target}) =>setState(target.value)} id={idInput} value={state} placeholder={placeholder}/>
+			<input type={typeInput} onChange={({target}) =>setState(target.value)} id={idInput} value={state} placeholder={placeholder}/>
 			{error && <Error error={validaInput(typeInput, state)}/>}
 
 
