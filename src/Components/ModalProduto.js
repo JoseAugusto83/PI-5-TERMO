@@ -22,7 +22,7 @@ const ModalProduto = ({setModalIsOpen, modalIsOpen}) => {
 		<div onClick={handleCloseModal} className={modalIsOpen == true ? `${styles.background} ${styles.visible}`: styles.background}>
 			<div className={styles.modal_container}>
 
-				{url == "http://localhost:3000/" ? <ModalSetProduto setModalIsOpen={setModalIsOpen}/> : <ModalSetVenda setModalIsOpen={setModalIsOpen}/>}
+				{url == "https://estoque360.netlify.app" ? <ModalSetProduto setModalIsOpen={setModalIsOpen}/> : <ModalSetVenda setModalIsOpen={setModalIsOpen}/>}
 			</div>
 		</div>
 	);
